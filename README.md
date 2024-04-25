@@ -1,6 +1,6 @@
 ## About The Project
 
-In this project, we use the Detectron 2 model and the cell nucleus dataset provided by Kaggle 2018 DataScienceBowl for the instance segmentation task. The dataset contains images of cells of different shapes and sizes, which are sampled at different microscope magnifications, light conditions, and staining methods. We chose MAP as the metric. We used the MAP achieved by the first place winner of the Kaggle competition and the Detectron 2 MAP values provided by Meta as the baseline, and the detailed analysis can be found in the report.[Report]()
+In this project, we use the Detectron 2 model and the cell nucleus dataset provided by Kaggle 2018 DataScienceBowl for the instance segmentation task. The dataset contains images of cells of different shapes and sizes, which are sampled at different microscope magnifications, light conditions, and staining methods. We chose MAP as the metric. We used the MAP achieved by the first place winner of the Kaggle competition and the Detectron 2 MAP values provided by Meta as the baseline, and the detailed analysis can be found in the report. [Report]()
 
 Due to the computation limitation, I did this project on colab platform using T4 GPU.
 
@@ -21,7 +21,7 @@ To begin, the dataset was preprocessed and transformed into a COCO dataset. The 
 
 The performance of the model is shown in table below. The model is strong in segmenting nuclei, especially when it comes to an IoU of 0.50, where the AP reaches 73.776%, indicating a high level of segmentation capability. However, as the conditions become more strict, such as under IoU=0.75, the AP drops to 55.046%, suggesting that while the model is effective in localizing and segmenting nuclei, its precision in capturing edge details needs improvement. This may be due to the model's insufficient refinement for edge segmentation and limited training epochs due to computational constraints; increasing the number of training epochs might help address this issue.
 
-### Bbox and Segm Metrics
+### Bbox Metrics
 
 | Metric | IoU       | Area   | MaxDets | Value |
 |--------|-----------|--------|---------|-------|
@@ -37,6 +37,23 @@ The performance of the model is shown in table below. The model is strong in seg
 | AR     | 0.50:0.95 | small  | 100     | 0.484 |
 | AR     | 0.50:0.95 | medium | 100     | 0.813 |
 | AR     | 0.50:0.95 | large  | 100     | -1.000|
+
+### Setm Metrics
+| Metric | IoU       | Area   | MaxDets | Value |
+|--------|-----------|--------|---------|-------|
+| AP     | 0.50:0.95 | all    | 100     | 0.492 |
+| AP     | 0.50      | all    | 100     | 0.738 |
+| AP     | 0.75      | all    | 100     | 0.550 |
+| AP     | 0.50:0.95 | small  | 100     | 0.444 |
+| AP     | 0.50:0.95 | medium | 100     | 0.789 |
+| AP     | 0.50:0.95 | large  | 100     | -1.000|
+| AR     | 0.50:0.95 | all    | 1       | 0.018 |
+| AR     | 0.50:0.95 | all    | 10      | 0.171 |
+| AR     | 0.50:0.95 | all    | 100     | 0.537 |
+| AR     | 0.50:0.95 | small  | 100     | 0.492 |
+| AR     | 0.50:0.95 | medium | 100     | 0.816 |
+| AR     | 0.50:0.95 | large  | 100     | -1.000|
+
 
 Furthermore, APl is NaN, indicating a lack of large-sized target samples in the dataset. Comparing APs and APm reveals that the model performs most effectively on medium-sized nuclei but is less accurate on smaller objects. This discrepancy may be due to a scarcity of small-sized targets in the training samples or inadequate capture of details by the model's feature extraction layer.
 
